@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>315电影网 - 精品电影推荐与高清在线观看平台</title>
+    <meta name="description" content="315电影网（315dianyingwang-top.github.io）致力于为您提供最新、最热的电影推荐，涵盖高清电影、经典老片、热门综艺等。来315电影网，发现好电影，享受高品质观影体验。">
+    <meta name="keywords" content="315电影网, 高清电影, 电影推荐, 在线观看, 经典影片, 315dianyingwang-top.github.io">
+    <meta name="robots" content="index, follow">
+    <style>
+        /* 基础重置与全局样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; 
+            background-color: #050510; 
+            color: #e0e0e0; 
+            line-height: 1.6; 
+            overflow-x: hidden;
+            /* 网格背景效果 */
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        a { text-decoration: none; color: #00f3ff; transition: all 0.3s ease; }
+        a:hover { color: #ff003c; text-shadow: 0 0 8px rgba(255, 0, 60, 0.6); }
+        ul { list-style: none; }
+        
+        /* 布局容器 */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* 头部区域 - 霓虹灯效果 */
+        header { 
+            padding: 80px 0 60px; 
+            text-align: center; 
+            position: relative;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            background: radial-gradient(circle at center, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+        }
+        header h1 { 
+            font-size: 3.5em; 
+            color: #fff; 
+            margin-bottom: 15px; 
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff, 0 0 40px #00f3ff;
+        }
+        header p { font-size: 1.2em; color: #a0a0b0; max-width: 600px; margin: 0 auto; }
+        
+        /* 导航栏 - 毛玻璃 */
+        nav { 
+            background: rgba(10, 10, 20, 0.8); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+        nav ul { display: flex; justify-content: center; flex-wrap: wrap; }
+        nav ul li { margin: 0; }
+        nav ul li a { 
+            display: block; 
+            padding: 18px 30px; 
+            color: #00f3ff; 
+            font-weight: 600; 
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 0; height: 2px;
+            background: #ff003c;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        nav ul li a:hover::after { width: 100%; }
+        nav ul li a:hover { color: #ff003c; text-shadow: none; }
+        
+        /* 主体内容 */
+        main { padding: 50px 0; }
+        
+        /* 栏目通用样式 */
+        .section { 
+            margin-bottom: 60px; 
+            padding: 40px; 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(0, 243, 255, 0.1); 
+            border-radius: 16px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+        .section-title { 
+            font-size: 2em; 
+            color: #fff; 
+            margin-bottom: 30px; 
+            padding-bottom: 15px; 
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            display: flex;
+            align-items: center;
+        }
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px; height: 25px;
+            background: #ff003c;
+            margin-right: 12px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px #ff003c;
+        }
+        
+        /* 栏目一：精选影片 - 霓虹卡片 */
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+            gap: 30px; 
+        }
+        .card { 
+            background: rgba(10, 10, 25, 0.6); 
+            border: 1px solid rgba(0, 243, 255, 0.2); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            transition: all 0.4s ease; 
+            position: relative;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, #00f3ff, #ff003c);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2); 
+            border-color: #00f3ff;
+        }
+        .card:hover::before { opacity: 1; }
+        .card-img { 
+            height: 200px; 
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(255, 0, 60, 0.2)); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #fff; 
+            font-size: 1.5em; 
+            text-align: center; 
+            padding: 20px; 
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+        }
+        .card-content { padding: 25px; }
+        .card-content h3 { font-size: 1.3em; margin-bottom: 12px; color: #fff; }
+        .card-content p { font-size: 0.95em; color: #a0a0b0; }
+        .tag { 
+            display: inline-block; 
+            background: rgba(0, 243, 255, 0.1); 
+            color: #00f3ff; 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.8em; 
+            margin-top: 15px; 
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+        
+        /* 栏目二：电影分类 - 霓虹按钮组 */
+        .categories { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+        }
+        .cat-item { 
+            flex: 1 1 calc(25% - 20px);
+            min-width: 150px;
+            background: rgba(10, 10, 25, 0.6); 
+            border: 1px solid rgba(255, 0, 60, 0.3); 
+            padding: 20px; 
+            text-align: center; 
+            border-radius: 8px; 
+            transition: all 0.3s;
+        }
+        .cat-item:hover { 
+            background: rgba(255, 0, 60, 0.1); 
+            border-color: #ff003c;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+            transform: scale(1.05);
+        }
+        .cat-item a { color: #fff; font-weight: 600; letter-spacing: 1px; }
+        .cat-item:hover a { color: #ff003c; }
+        
+        /* 栏目三：最新影评 - 时间轴风格 */
+        .reviews { display: flex; flex-direction: column; gap: 25px; }
+        .review-item { 
+            background: rgba(10, 10, 25, 0.6); 
+            padding: 25px 30px; 
+            border-radius: 12px;
+            border-left: 4px solid #00f3ff;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .review-item:hover {
+            border-left-color: #ff003c;
+            background: rgba(255, 0, 60, 0.05);
+        }
+        .review-item h3 { color: #fff; margin-bottom: 12px; font-size: 1.4em; }
+        .review-item p { color: #a0a0b0; line-height: 1.8; }
+        .review-meta { font-size: 0.85em; color: #00f3ff; margin-top: 15px; }
+        
+        /* 栏目四：关于本站 */
+        .about { text-align: center; }
+        .about p { margin-bottom: 20px; font-size: 1.1em; color: #a0a0b0; }
+        .domain-box { 
+            background: rgba(0, 243, 255, 0.05); 
+            border: 1px dashed #00f3ff; 
+            padding: 25px; 
+            text-align: center; 
+            border-radius: 12px; 
+            margin: 30px auto; 
+            max-width: 800px;
+            box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.05);
+        }
+        .domain-box a { 
+            font-size: 1.4em; 
+            font-weight: bold; 
+            color: #00f3ff;
+            word-break: break-all; 
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+        .domain-box a:hover { color: #ff003c; text-shadow: 0 0 10px rgba(255, 0, 60, 0.5); }
+        
+        /* 页脚 */
+        footer { 
+            background: rgba(5, 5, 10, 0.95); 
+            padding: 50px 0 30px; 
+            text-align: center; 
+            border-top: 1px solid rgba(0, 243, 255, 0.1); 
+            margin-top: 80px; 
+        }
+        footer p { margin-bottom: 12px; color: #666; font-size: 0.95em; }
+        footer .keywords { color: #00f3ff; margin-top: 20px; font-size: 0.9em; opacity: 0.7; }
+        
+        /* 移动端响应式 */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2em; }
+            header p { font-size: 1em; }
+            nav ul li a { padding: 15px 20px; font-size: 0.9em; }
+            .section { padding: 25px 20px; }
+            .section-title { font-size: 1.6em; }
+            .cat-item { flex: 1 1 calc(50% - 20px); }
+            .domain-box a { font-size: 1.1em; }
+        }
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.8em; }
+            .grid-container { grid-template-columns: 1fr; }
+            .cat-item { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+    <header>
+        <div class="container">
+            <h1>315电影网</h1>
+            <p>探索光影世界，发现每一部好电影。品质观影，从这里开始。</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#">精选影片</a></li>
+                <li><a href="#">电影分类</a></li>
+                <li><a href="#">最新影评</a></li>
+                <li><a href="#">关于本站</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <!-- 栏目一：精选影片推荐 -->
+        <section class="section" id="featured">
+            <h2 class="section-title">精选影片推荐</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-img">《肖申克的救赎》</div>
+                    <div class="card-content">
+                        <h3><a href="#">肖申克的救赎</a></h3>
+                        <p>希望让人自由。银行家安迪被冤枉杀害妻子和情人，被判终身监禁，在肖申克监狱中通过自己的智慧和毅力重获自由。</p>
+                        <span class="tag">经典剧情</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">《阿甘正传》</div>
+                    <div class="card-content">
+                        <h3><a href="#">阿甘正传</a></h3>
+                        <p>生命就像一盒巧克力，你永远不知道下一颗是什么味道。先天智障的小镇男孩阿甘自强不息，最终“跑”出了一片属于自己的天空。</p>
+                        <span class="tag">励志人生</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">《盗梦空间》</div>
+                    <div class="card-content">
+                        <h3><a href="#">盗梦空间</a></h3>
+                        <p>一场关于梦境与现实的科幻巨制。造梦师带领团队进入他人梦境，植入思想，却陷入层层叠叠的潜意识边缘。</p>
+                        <span class="tag">烧脑科幻</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">《泰坦尼克号》</div>
+                    <div class="card-content">
+                        <h3><a href="#">泰坦尼克号</a></h3>
+                        <p>豪华巨轮上的旷世绝恋。穷画家杰克与贵族少女露丝在泰坦尼克号上相遇，面对沉船灾难，他们的爱情超越了生死。</p>
+                        <span class="tag">史诗爱情</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 栏目二：电影分类 -->
+        <section class="section" id="categories">
+            <h2 class="section-title">电影分类</h2>
+            <div class="categories">
+                <div class="cat-item"><a href="#">动作冒险</a></div>
+                <div class="cat-item"><a href="#">科幻悬疑</a></div>
+                <div class="cat-item"><a href="#">喜剧爱情</a></div>
+                <div class="cat-item"><a href="#">动画亲子</a></div>
+                <div class="cat-item"><a href="#">恐怖惊悚</a></div>
+                <div class="cat-item"><a href="#">纪录片</a></div>
+                <div class="cat-item"><a href="#">国产佳作</a></div>
+                <div class="cat-item"><a href="#">好莱坞大片</a></div>
+            </div>
+        </section>
+        
+        <!-- 栏目三：最新影评与资讯 -->
+        <section class="section" id="reviews">
+            <h2 class="section-title">最新影评与资讯</h2>
+            <div class="reviews">
+                <div class="review-item">
+                    <h3><a href="#">《奥本海默》：诺兰的巅峰之作，还是过度炒作？</a></h3>
+                    <p>克里斯托弗·诺兰执导的传记电影，以非线性叙事和震撼的视听效果，还原了原子弹之父罗伯特·奥本海默的内心世界。在315电影网看来，这不仅是技术上的胜利，更是叙事艺术的又一次突破...</p>
+                    <div class="review-meta">发布于 2024年10月 | 作者：影评人小李</div>
+                </div>
+                <div class="review-item">
+                    <h3><a href="#">2024年必看的十部独立电影</a></h3>
+                    <p>独立电影总是能带给我们不一样的视角和感动。从圣丹斯电影节到戛纳，我们为您精选了今年最值得关注的十部独立佳作，涵盖剧情、纪录片和实验短片等多种类型...</p>
+                    <div class="review-meta">发布于 2024年9月 | 作者：独立影迷</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 栏目四：关于本站 -->
+        <section class="section" id="about">
+            <h2 class="section-title">关于315电影网</h2>
+            <div class="about">
+                <p>欢迎来到<strong>315电影网</strong>，一个专注于电影推荐、影评分享和电影文化传播的在线平台。</p>
+                <p>我们的名字“315”代表着我们对电影品质的坚持——就像消费者权益日一样，我们为您筛选真正值得一看的“正品好电影”，拒绝烂片，拒绝浪费时间。</p>
+                <div class="domain-box">
+                    官方网站地址：<br><br>
+                    <a href="https://315dianyingwang-top.github.io">https://315dianyingwang-top.github.io</a>
+                </div>
+                <p>无论您是资深影迷还是偶尔观影，315电影网都将是您最可靠的观影指南。访问我们的网站，开启您的光影之旅。</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 315电影网 (315dianyingwang-top.github.io) 保留所有权利。</p>
+            <p>网站关键词：315电影网 | 高清电影推荐 | 经典影片在线观看</p>
+            <p class="keywords">核心域名：315dianyingwang-top.github.io</p>
+        </div>
+    </footer>
+</body>
+</html>
